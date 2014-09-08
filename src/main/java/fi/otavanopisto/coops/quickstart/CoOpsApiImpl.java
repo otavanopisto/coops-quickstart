@@ -139,7 +139,7 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
         if (revisionExtensionProperties.size() > 0) {
           extensions = new HashMap<>();
           for (FileRevisionExtensionProperty revisionExtensionProperty : revisionExtensionProperties) {
-            properties.put(revisionExtensionProperty.getKey(), revisionExtensionProperty.getValue());
+            extensions.put(revisionExtensionProperty.getKey(), revisionExtensionProperty.getValue());
           }
         }
         
@@ -178,13 +178,20 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
     String patched = null;
     
     if (StringUtils.isNotBlank(patch)) {
-      patched = algorithm.patch(file.getData(), patch);
+      String data = file.getData();
+      if (data == null) {
+        data = "";
+      }
+      
+      patched = algorithm.patch(data, patch);
       checksum = DigestUtils.md5Hex(patched);
+      fileDAO.updateData(file, patched);
     } 
     
     Long patchRevisionNumber = currentRevision + 1;
     FileRevision fileRevision = fileRevisionDAO.create(file, sessionId, patchRevisionNumber, new Date(), patch, checksum);
-    
+    fileDAO.updateRevisionNumber(file, patchRevisionNumber);
+
     if (properties != null) {
       for (String key : properties.keySet()) {
         String value = properties.get(key);

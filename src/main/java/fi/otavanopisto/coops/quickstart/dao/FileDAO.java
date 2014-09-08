@@ -15,7 +15,15 @@ public class FileDAO extends GenericDAO<File> {
     
     return persist(file);    
   }
-  
-  
+
+  public File updateData(fi.otavanopisto.coops.quickstart.model.File file, String data) {
+    file.setData(data);
+    return persist(file);    
+  }
+
+  public File updateRevisionNumber(fi.otavanopisto.coops.quickstart.model.File file, Long revisionNumber) {
+    file.setRevisionNumber(revisionNumber);
+    return persist(file);    
+  }
 
 }
