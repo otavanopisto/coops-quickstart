@@ -21,7 +21,9 @@ public class CoOpsDmpDiffAlgorithm implements CoOpsDiffAlgorithm {
     Object[] patchResult = diffMatchPatch.patch_apply(patches, data);
     
     for (boolean applied : (boolean[]) patchResult[1]) {
-      throw new CoOpsConflictException();
+      if (!applied) {
+        throw new CoOpsConflictException();
+      }
     }
 
     return (String) patchResult[0];
