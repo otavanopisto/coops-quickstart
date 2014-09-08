@@ -245,12 +245,6 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
       throw new CoOpsNotImplementedException("Server and client do not have a commonly supported algorithm.");
     }
 
-    // TODO: FIX THESE -->
-
-    String contentType = "text/html;editor=CKEditor";
-
-    // TODO: <!-- FIX THESE
-    
     Long currentRevision = file.getRevisionNumber();
     String data = file.getData();
     if (data == null) {
@@ -285,7 +279,7 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
 //    
 //    sessionOpenEvent.fire(new CoOpsSessionOpenEvent(coOpsSession.getSessionId()));
 //    
-    return new Join(coOpsSession.getSessionId(), coOpsSession.getAlgorithm(), coOpsSession.getJoinRevision(), data, contentType, properties, extensions);
+    return new Join(coOpsSession.getSessionId(), coOpsSession.getAlgorithm(), coOpsSession.getJoinRevision(), data, file.getContentType(), properties, extensions);
   }
   
   private CoOpsDiffAlgorithm findAlgorithm(String algorithmName) {
