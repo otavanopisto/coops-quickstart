@@ -41,8 +41,28 @@
       height: 500,
       coops: {
         serverUrl: serverUrl
-      }
+      },
+      toolbar: [
+         { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Print', '-', 'Templates' ] },
+         { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+         { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
+         { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl' ] },
+         '/',
+         { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
+         { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+         { name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
+         { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ] },
+         '/',
+         { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+         { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+         { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
+         { name: 'others', items: [ '-' ] },
+         { name: 'about', items: [ 'About' ] }
+       ]
     });
+    
+    
+    
 //    
 //    /* CoOps status messages */
 //    
@@ -70,13 +90,13 @@
 //      $('.notifications').find('.connection-lost-notification').notification("hide");
 //    });
 //
-//    editor.on("CoOPS:CollaboratorJoined", function (event) {
-//      $('.collaborators').collaborators("addCollaborator", event.data.sessionId, event.data.displayName||'Anonymous', event.data.email||(event.data.sessionId + '@no.invalid'));
-//    });
-//
-//    editor.on("CoOPS:CollaboratorLeft", function (event) {
-//      $('.collaborators').collaborators("removeCollaborator", event.data.sessionId);
-//    });
+    editor.on("CoOPS:CollaboratorJoined", function (event) {
+      $('.collaborators').collaborators("addCollaborator", event.data.sessionId, event.data.displayName||'Anonymous', event.data.email||(event.data.sessionId + '@no.invalid'));
+    });
+
+    editor.on("CoOPS:CollaboratorLeft", function (event) {
+      $('.collaborators').collaborators("removeCollaborator", event.data.sessionId);
+    });
 //    
 //    // CoOPS Errors
 //    
@@ -122,7 +142,7 @@
 //      }
 //    });
 //    
-//    $('.collaborators').collaborators();
+    $('.collaborators').collaborators();
   });
   
 }).call(this);
