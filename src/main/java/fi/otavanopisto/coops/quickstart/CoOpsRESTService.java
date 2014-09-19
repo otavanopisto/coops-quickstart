@@ -40,15 +40,15 @@ public class CoOpsRESTService {
       File file = coOpsApi.fileGet(fileId, revisionNumber);
       return Response.ok(file).build();
     } catch (CoOpsNotImplementedException e) {
-      return Response.status(Status.NOT_IMPLEMENTED).build();
+      return Response.status(Status.NOT_IMPLEMENTED).entity("Not implemented").build();
     } catch (CoOpsNotFoundException e) {
-      return Response.status(Status.NOT_FOUND).build();
+      return Response.status(Status.NOT_FOUND).entity("File not found").build();
     } catch (CoOpsUsageException e) {
-      return Response.status(Status.BAD_REQUEST).build();
+      return Response.status(Status.BAD_REQUEST).entity("Bad request").build();
     } catch (CoOpsInternalErrorException e) {
-      return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+      return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
     } catch (CoOpsForbiddenException e) {      
-      return Response.status(Status.FORBIDDEN).build();
+      return Response.status(Status.FORBIDDEN).entity("Forbidden").build();
     } 
   }
   
@@ -59,15 +59,15 @@ public class CoOpsRESTService {
       coOpsApi.filePatch(fileId, patch.getSessionId(), patch.getRevisionNumber(), patch.getPatch(), patch.getProperties(), patch.getExtensions());
       return Response.noContent().build();
     } catch (CoOpsNotFoundException e) {
-      return Response.status(Status.NOT_FOUND).build();
+      return Response.status(Status.NOT_FOUND).entity("File not found").build();
     } catch (CoOpsUsageException e) {
-      return Response.status(Status.BAD_REQUEST).build();
+      return Response.status(Status.BAD_REQUEST).entity("Bad request").build();
     } catch (CoOpsInternalErrorException e) {
-      return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+      return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
     } catch (CoOpsForbiddenException e) {      
-      return Response.status(Status.FORBIDDEN).build();
+      return Response.status(Status.FORBIDDEN).entity("Forbidden").build();
     } catch (CoOpsConflictException e) {
-      return Response.status(Status.CONFLICT).build();
+      return Response.status(Status.CONFLICT).entity("Conflict").build();
     } 
   }
   
@@ -82,13 +82,13 @@ public class CoOpsRESTService {
         return Response.ok(patches).build();
       }
     } catch (CoOpsNotFoundException e) {
-      return Response.status(Status.NOT_FOUND).build();
+      return Response.status(Status.NOT_FOUND).entity("File not found").build();
     } catch (CoOpsUsageException e) {
-      return Response.status(Status.BAD_REQUEST).build();
+      return Response.status(Status.BAD_REQUEST).entity("Bad request").build();
     } catch (CoOpsInternalErrorException e) {
-      return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+      return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
     } catch (CoOpsForbiddenException e) {      
-      return Response.status(Status.FORBIDDEN).build();
+      return Response.status(Status.FORBIDDEN).entity("Forbidden").build();
     } 
   }
   
@@ -98,15 +98,15 @@ public class CoOpsRESTService {
     try {
       return Response.ok(coOpsApi.fileJoin(fileId, algorithms, protocolVersion)).build();
     } catch (CoOpsNotFoundException e) {
-      return Response.status(Status.NOT_FOUND).build();
+      return Response.status(Status.NOT_FOUND).entity("File not found").build();
     } catch (CoOpsUsageException e) {
-      return Response.status(Status.BAD_REQUEST).build();
+      return Response.status(Status.BAD_REQUEST).entity("Bad request").build();
     } catch (CoOpsInternalErrorException e) {
-      return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+      return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
     } catch (CoOpsForbiddenException e) {      
-      return Response.status(Status.FORBIDDEN).build();
+      return Response.status(Status.FORBIDDEN).entity("Forbidden").build();
     } catch (CoOpsNotImplementedException e) {
-      return Response.status(Status.NOT_IMPLEMENTED).build();
+      return Response.status(Status.NOT_IMPLEMENTED).entity("Not implemented").build();
     } 
   }
   
