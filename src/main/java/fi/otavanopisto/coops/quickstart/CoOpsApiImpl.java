@@ -12,9 +12,11 @@ import java.util.UUID;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -75,6 +77,12 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
 
   @Inject
   private CoOpsSessionDAO coOpsSessionDAO;
+
+  @Inject
+  private Event<CoOpsPatchEvent> patchEvent;
+
+  @Inject
+  private HttpServletRequest httpRequest;
   
   public File fileGet(String fileId, Long revisionNumber) throws CoOpsNotImplementedException, CoOpsNotFoundException, CoOpsUsageException, CoOpsInternalErrorException, CoOpsForbiddenException {
     fi.otavanopisto.coops.quickstart.model.File file = findFile(fileId);
@@ -227,6 +235,8 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
         fileRevisionExtensionPropertyDAO.create(fileRevision, key, value);
       }
     }
+    
+    patchEvent.fire(new CoOpsPatchEvent(fileId, new Patch(sessionId, patchRevisionNumber, checksum, patch, properties, extensions)));
   }
 
   public Join fileJoin(String fileId, List<String> algorithms, String protocolVersion) throws CoOpsNotFoundException, CoOpsNotImplementedException, CoOpsInternalErrorException, CoOpsForbiddenException, CoOpsUsageException {
@@ -251,7 +261,7 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
       data = "";
     }
 
-    List<CoOpsSession> openSessions = coOpsSessionDAO.listByFileAndClosed(file, Boolean.FALSE);
+//    List<CoOpsSession> openSessions = coOpsSessionDAO.listByFileAndClosed(file, Boolean.FALSE);
     Map<String, String> properties = new HashMap<>();
     
     List<FileProperty> fileProperties = filePropertyDAO.listByFile(file);
@@ -266,16 +276,16 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
     
 //    extensions.put("sessionEvents", coOpsSessionEventsController.createSessionEvents(openSessions, "OPEN"));
 //    
-//    String wsUrl = String.format("ws://%s:%s%s/ws/coops/document/%d/%s", 
-//        httpRequest.getServerName(), 
-//        httpRequest.getServerPort(), 
-//        httpRequest.getContextPath(), 
-//        document.getId(), 
-//        coOpsSession.getSessionId());
-//    
-//    Map<String, Object> webSocketExtension = new HashMap<>();
-//    webSocketExtension.put("ws", wsUrl);
-//    extensions.put("webSocket", webSocketExtension);
+    String wsUrl = String.format("ws://%s:%s%s/ws/%d/%s", 
+        httpRequest.getServerName(), 
+        httpRequest.getServerPort(), 
+        httpRequest.getContextPath(), 
+        file.getId(), 
+        coOpsSession.getSessionId());
+    
+    Map<String, Object> webSocketExtension = new HashMap<>();
+    webSocketExtension.put("ws", wsUrl);
+    extensions.put("webSocket", webSocketExtension);
 //    
 //    sessionOpenEvent.fire(new CoOpsSessionOpenEvent(coOpsSession.getSessionId()));
 //    

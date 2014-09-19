@@ -62,4 +62,14 @@ public class CoOpsSessionDAO extends GenericDAO<CoOpsSession> {
     return entityManager.createQuery(criteria).getResultList();
   }
 
+  public CoOpsSession updateType(CoOpsSession coOpsSession, CoOpsSessionType type) {
+    coOpsSession.setType(type);
+    return persist(coOpsSession);
+  }
+
+  public CoOpsSession updateClosed(CoOpsSession session, Boolean closed) {
+    session.setClosed(closed);
+    return persist(session);
+  }
+
 }

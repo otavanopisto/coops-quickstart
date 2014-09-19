@@ -25,6 +25,7 @@
     <!-- CoOps -->
               
     <coops-spec.version>1.0.0</coops-spec.version> 
+    <coops-ws-spec.version>1.0.0</coops-ws-spec.version> 
     
     <!-- Apache Commons -->
 
@@ -88,6 +89,14 @@
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
       <artifactId>jaxrs-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    
+    <!-- WebSockets -->
+    
+    <dependency>
+      <groupId>org.jboss.spec.javax.websocket</groupId>
+      <artifactId>jboss-websocket-api_1.0_spec</artifactId>
       <scope>provided</scope>
     </dependency>
     
@@ -189,6 +198,12 @@
       <groupId>fi.foyt.coops</groupId>
       <artifactId>coops-spec</artifactId>
       <version>${coops-spec.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>fi.foyt.coops</groupId>
+      <artifactId>coops-ws-spec</artifactId>
+      <version>${coops-ws-spec.version}</version>
     </dependency>
     
   </dependencies>
