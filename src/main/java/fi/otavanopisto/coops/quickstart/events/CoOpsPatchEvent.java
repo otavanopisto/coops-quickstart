@@ -1,4 +1,4 @@
-package fi.otavanopisto.coops.quickstart;
+package fi.otavanopisto.coops.quickstart.events;
 
 import fi.foyt.coops.model.Patch;
 
