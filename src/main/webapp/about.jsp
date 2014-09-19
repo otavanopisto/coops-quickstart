@@ -29,11 +29,10 @@
       </ol>
       
       <p>After that you should be able to you should be able to see the CoOps quickstart at <a href="http://localhost:8080">http://localhost:8080</a> (it is possible that application takes couple of minutes to start)</p>
-      
-      <footer>
-        <p>&copy; Otavan Opisto 2014 <a href="https://www.otavanopisto.fi">Otavan Opisto</a></p>
-      </footer>
+
     </div>
 
+    <jsp:include page="/includes/footer.jsp"></jsp:include>
+    
   </body>
 </html>

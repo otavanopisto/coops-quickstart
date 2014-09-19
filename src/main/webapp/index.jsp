@@ -48,13 +48,9 @@
           </c:forEach>
         </c:otherwise>
       </c:choose>
-
-      <hr/>
-
-      <footer>
-        <p>&copy; Otavan Opisto 2014 <a href="https://www.otavanopisto.fi">Otavan Opisto</a></p>
-      </footer>
     </div>
+
+    <jsp:include page="/includes/footer.jsp"></jsp:include>
 
   </body>
 </html>

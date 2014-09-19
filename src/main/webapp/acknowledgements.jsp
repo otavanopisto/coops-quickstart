@@ -27,11 +27,9 @@
         <li>Wildfly is used as application container (<a href="http://www.wildfly.org/">http://www.wildfly.org/</a>)</li>
         <li>H2 is used as database server (<a href="http://www.h2database.com/">http://www.h2database.com/</a>)</li>
       </ul>
-
-      <footer>
-        <p>&copy; Otavan Opisto 2014 <a href="https://www.otavanopisto.fi">Otavan Opisto</a></p>
-      </footer>
     </div>
+ 
+    <jsp:include page="/includes/footer.jsp"></jsp:include>
 
   </body>
 </html>

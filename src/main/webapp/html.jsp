@@ -34,6 +34,7 @@
         <div class="collaborators"></div>
       </div>
     </div>
-    <div class="footer"></div>
+    
+    <jsp:include page="/includes/footer.jsp"></jsp:include>
   </body>
 </html>
