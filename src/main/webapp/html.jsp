@@ -21,8 +21,8 @@
   <body>
     <jsp:include page="/includes/forkme.jsp"></jsp:include>
     <jsp:include page="/includes/navbar.jsp"></jsp:include>
-
-    <div class="notifications"></div>
+    <jsp:include page="/includes/notifications.jsp"></jsp:include>
+    
     <div class="container">
       <div class="content">
         <div class="editor">

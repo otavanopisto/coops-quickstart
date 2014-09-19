@@ -79,15 +79,15 @@
     editor.on("CoOPS:PatchAccepted", function (event) {
       document.title = $('input[name="name"]').val() + ' - Saved';
     });
-//
-//    editor.on("CoOPS:ConnectionLost", function (event) {
-//      $('.notifications').notifications('notification', 'load', event.data.message).addClass('connection-lost-notification');
-//    });
-//
-//    editor.on("CoOPS:Reconnect", function (event) {
-//      $('.notifications').find('.connection-lost-notification').notification("hide");
-//    });
-//
+
+    editor.on("CoOPS:ConnectionLost", function (event) {
+      $('.notifications').notifications('notification', 'load', event.data.message).addClass('connection-lost-notification');
+    });
+
+    editor.on("CoOPS:Reconnect", function (event) {
+      $('.notifications').find('.connection-lost-notification').notification("hide");
+    });
+
     editor.on("CoOPS:CollaboratorJoined", function (event) {
       $('.collaborators').collaborators("addCollaborator", event.data.sessionId, event.data.displayName||'Anonymous', event.data.email||(event.data.sessionId + '@no.invalid'));
     });
@@ -95,26 +95,26 @@
     editor.on("CoOPS:CollaboratorLeft", function (event) {
       $('.collaborators').collaborators("removeCollaborator", event.data.sessionId);
     });
-//    
-//    // CoOPS Errors
-//    
-//    editor.on("CoOPS:Error", function (event) {
-//      $('.notifications').find('.connection-lost-notification').notification("hide");
-//      
-//      switch (event.data.severity) {
-//        case 'CRITICAL':
-//        case 'SEVERE':
-//          $('.notifications').notifications('notification', 'error', event.data.message);
-//        break;
-//        case 'WARNING':
-//          $('.notifications').notifications('notification', 'warning', event.data.message);
-//        break;
-//        default:
-//          $('.notifications').notifications('notification', 'info', event.data.message);
-//        break;
-//      }
-//    });
-//    
+    
+    // CoOPS Errors
+    
+    editor.on("CoOPS:Error", function (event) {
+      $('.notifications').find('.connection-lost-notification').notification("hide");
+      
+      switch (event.data.severity) {
+        case 'CRITICAL':
+        case 'SEVERE':
+          $('.notifications').notifications('notification', 'error', event.data.message);
+        break;
+        case 'WARNING':
+          $('.notifications').notifications('notification', 'warning', event.data.message);
+        break;
+        default:
+          $('.notifications').notifications('notification', 'info', event.data.message);
+        break;
+      }
+    });
+    
 //    $('input[name="name"]').change(function (event) {
 //      var oldValue = $(this).parent().data('old-value');
 //      var value = $(this).val();
