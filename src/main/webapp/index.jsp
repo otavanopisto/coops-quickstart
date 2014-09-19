@@ -24,11 +24,16 @@
     </div>
     
     <div class="container">
+      <p>
+        <i>
+          Please note that this quickstart runs on in-memory databaase (h2) so <b>all your work will be lost when the server restarts.</b> 
+        </i>
+      </p>
+      
       <h2>Using this demo</h2>
       <p>This demo allows you to edit html documents with your friends. Just click 'Open New Document', wait for the page to load and send the page link to another user and voi'la, you can start collaborating. Open documents are also listed in the index page of this application</p>
       
       <a href="${pageContext.request.contextPath}/files?a=new&contentType=text/html;editor=CKEditor">Open New Document</a>
-      
       <h3>Open Documents</h3>
       
       <c:choose>
