@@ -13,15 +13,11 @@ Usage
 
 Clone the repository to your computer by running following command:
 
-{{{
-  git clone https://github.com/otavanopisto/coops-quickstart.git
-}}}
+     git clone https://github.com/otavanopisto/coops-quickstart.git
 
 Next you need to navigate to cloned folder and start the application. 
 
-{{{
-  cd coops-quickstart
-  mvn clean verify cargo:run
-}}}
+    cd coops-quickstart
+    mvn clean verify cargo:run
 
 ... wait for couple of minutes and navigate to http://localhost:8080 and you should see the CoOps quickstart 
