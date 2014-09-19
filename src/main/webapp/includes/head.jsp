@@ -6,9 +6,20 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-
+    
 <!-- Bootstrap CSS -->
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<!-- Notifications -->
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/scripts/notifications.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/notifications.css">
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('.notifications').notifications();
+  });
+</script>
