@@ -14,6 +14,8 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/jshash/2.2/md5-min.js"></script> 
     <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/diffxml-js/diffxml-js.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/html.js"></script>
+    
+    <link rel="StyleSheet" href="${pageContext.request.contextPath}/css/html.css"/>
   </head>
   <body>
     <jsp:include page="/includes/forkme.jsp"></jsp:include>
