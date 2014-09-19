@@ -32,15 +32,14 @@ import fi.foyt.coops.CoOpsUsageException;
 import fi.foyt.coops.model.File;
 import fi.foyt.coops.model.Join;
 import fi.foyt.coops.model.Patch;
-import fi.otavanopisto.coops.quickstart.dao.CoOpsSessionDAO;
 import fi.otavanopisto.coops.quickstart.dao.FileDAO;
 import fi.otavanopisto.coops.quickstart.dao.FileExtensionPropertyDAO;
 import fi.otavanopisto.coops.quickstart.dao.FilePropertyDAO;
 import fi.otavanopisto.coops.quickstart.dao.FileRevisionDAO;
 import fi.otavanopisto.coops.quickstart.dao.FileRevisionExtensionPropertyDAO;
 import fi.otavanopisto.coops.quickstart.dao.FileRevisionPropertyDAO;
+import fi.otavanopisto.coops.quickstart.events.CoOpsPatchEvent;
 import fi.otavanopisto.coops.quickstart.model.CoOpsSession;
-import fi.otavanopisto.coops.quickstart.model.CoOpsSessionType;
 import fi.otavanopisto.coops.quickstart.model.FileExtensionProperty;
 import fi.otavanopisto.coops.quickstart.model.FileProperty;
 import fi.otavanopisto.coops.quickstart.model.FileRevision;
@@ -76,8 +75,11 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
   private FileRevisionExtensionPropertyDAO fileRevisionExtensionPropertyDAO;
 
   @Inject
-  private CoOpsSessionDAO coOpsSessionDAO;
+  private CoOpsSessionController coOpsSessionController;
 
+  @Inject
+  private CoOpsSessionEventsController coOpsSessionEventsController;
+  
   @Inject
   private Event<CoOpsPatchEvent> patchEvent;
 
@@ -109,7 +111,7 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
   }
 
   public List<Patch> fileUpdate(String fileId, String sessionId, Long revisionNumber) throws CoOpsNotFoundException, CoOpsInternalErrorException, CoOpsUsageException, CoOpsForbiddenException {
-    CoOpsSession session = coOpsSessionDAO.findBySessionId(sessionId);
+    CoOpsSession session = coOpsSessionController.findSessionBySessionId(sessionId);
     if (session == null) {
       throw new CoOpsUsageException("Invalid session id"); 
     }
@@ -163,7 +165,7 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
   }
 
   public void filePatch(String fileId, String sessionId, Long revisionNumber, String patch, Map<String, String> properties, Map<String, Object> extensions) throws CoOpsInternalErrorException, CoOpsUsageException, CoOpsNotFoundException, CoOpsConflictException, CoOpsForbiddenException {
-    CoOpsSession session = coOpsSessionDAO.findBySessionId(sessionId);
+    CoOpsSession session = coOpsSessionController.findSessionBySessionId(sessionId);
     if (session == null) {
       throw new CoOpsUsageException("Invalid session id"); 
     }
@@ -261,7 +263,6 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
       data = "";
     }
 
-//    List<CoOpsSession> openSessions = coOpsSessionDAO.listByFileAndClosed(file, Boolean.FALSE);
     Map<String, String> properties = new HashMap<>();
     
     List<FileProperty> fileProperties = filePropertyDAO.listByFile(file);
@@ -272,24 +273,30 @@ public class CoOpsApiImpl implements fi.foyt.coops.CoOpsApi {
     Map<String, Object> extensions = new HashMap<>();
     String sessionId = UUID.randomUUID().toString();
     
-    CoOpsSession coOpsSession = coOpsSessionDAO.create(file, sessionId, CoOpsSessionType.REST, currentRevision, algorithm.getName(), Boolean.FALSE, new Date());
+    CoOpsSession coOpsSession = coOpsSessionController.createSession(file, sessionId, currentRevision, algorithm.getName());
     
-//    extensions.put("sessionEvents", coOpsSessionEventsController.createSessionEvents(openSessions, "OPEN"));
-//    
+    addSessionEventsExtension(file, extensions);
+    addWebSocketExtension(file, extensions, coOpsSession);
+    
+    return new Join(coOpsSession.getSessionId(), coOpsSession.getAlgorithm(), coOpsSession.getJoinRevision(), data, file.getContentType(), properties, extensions);
+  }
+
+  private void addWebSocketExtension(fi.otavanopisto.coops.quickstart.model.File file, Map<String, Object> extensions, CoOpsSession coOpsSession) {
     String wsUrl = String.format("ws://%s:%s%s/ws/%d/%s", 
-        httpRequest.getServerName(), 
-        httpRequest.getServerPort(), 
-        httpRequest.getContextPath(), 
-        file.getId(), 
-        coOpsSession.getSessionId());
+      httpRequest.getServerName(), 
+      httpRequest.getServerPort(), 
+      httpRequest.getContextPath(), 
+      file.getId(), 
+      coOpsSession.getSessionId());
     
     Map<String, Object> webSocketExtension = new HashMap<>();
     webSocketExtension.put("ws", wsUrl);
     extensions.put("webSocket", webSocketExtension);
-//    
-//    sessionOpenEvent.fire(new CoOpsSessionOpenEvent(coOpsSession.getSessionId()));
-//    
-    return new Join(coOpsSession.getSessionId(), coOpsSession.getAlgorithm(), coOpsSession.getJoinRevision(), data, file.getContentType(), properties, extensions);
+  }
+
+  private void addSessionEventsExtension(fi.otavanopisto.coops.quickstart.model.File file, Map<String, Object> extensions) {
+    List<CoOpsSession> openSessions = coOpsSessionController.listSessionsByFileAndClosed(file, Boolean.FALSE);
+    extensions.put("sessionEvents", coOpsSessionEventsController.createSessionEvents(openSessions, "OPEN"));
   }
   
   private CoOpsDiffAlgorithm findAlgorithm(String algorithmName) {
