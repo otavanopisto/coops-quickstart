@@ -140,6 +140,10 @@
       }
     });
     
+    editor.on("CoOPS:BeforeSessionStart", function (event) {
+      $('input[name="name"]').val(event.data.joinData.properties.title);
+    });
+    
     $('.collaborators').collaborators();
   });
   

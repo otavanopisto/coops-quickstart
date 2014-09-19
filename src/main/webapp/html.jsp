@@ -27,7 +27,7 @@
       <div class="content">
         <div class="editor">
           <div id="title-container">
-            <input type="text" name="name" value="Untitled">
+            <input type="text" name="name" value="">
           </div>
           <div id="ckcontainer"></div>
         </div>
