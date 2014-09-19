@@ -62,25 +62,23 @@
     });
     
     
+    /* CoOps status messages */
     
-//    
-//    /* CoOps status messages */
-//    
-//    editor.on("CoOPS:SessionStart", function (event) {
-//      $('.editor-status').html('Loaded');
-//    });
-//    
-//    editor.on("CoOPS:ContentDirty", function (event) {
-//      $('.editor-status').html('Unsaved');
-//    });
-//    
-//    editor.on("CoOPS:PatchSent", function (event) {
-//      $('.editor-status').html('Saving...');
-//    });
-//    
-//    editor.on("CoOPS:PatchAccepted", function (event) {
-//      $('.editor-status').html('Saved');
-//    });
+    editor.on("CoOPS:SessionStart", function (event) {
+      document.title = $('input[name="name"]').val() + ' - Loaded';
+    });
+    
+    editor.on("CoOPS:ContentDirty", function (event) {
+      document.title = $('input[name="name"]').val() + ' - Unsaved';
+    });
+    
+    editor.on("CoOPS:PatchSent", function (event) {
+      document.title = $('input[name="name"]').val() + ' - Saving...';
+    });
+    
+    editor.on("CoOPS:PatchAccepted", function (event) {
+      document.title = $('input[name="name"]').val() + ' - Saved';
+    });
 //
 //    editor.on("CoOPS:ConnectionLost", function (event) {
 //      $('.notifications').notifications('notification', 'load', event.data.message).addClass('connection-lost-notification');
