@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <jsp:include page="/includes/head.jsp"/>
     <title>CoOps quickstart</title>
+
     <script type="text/javascript">
       var CONTEXTPATH = '${pageContext.request.contextPath}';
     </script>
     
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.3.2/ckeditor.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/jshash/2.2/md5-min.js"></script> 
@@ -16,6 +16,9 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/html.js"></script>
   </head>
   <body>
+    <jsp:include page="/includes/forkme.jsp"></jsp:include>
+    <jsp:include page="/includes/navbar.jsp"></jsp:include>
+
     <div class="notifications"></div>
     <div class="container">
       <div class="content">
