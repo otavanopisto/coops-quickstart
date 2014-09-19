@@ -27,7 +27,7 @@ public class IndexPageBackingBean {
     
     for (File file : fileDAO.listAll()) {
       FileProperty fileProperty = filePropertyDAO.findByFileAndKey(file, "title");
-      String title = fileProperty == null ? "Untitled" : fileProperty.getKey();
+      String title = fileProperty == null ? "Untitled" : fileProperty.getValue();
       result.add(new FileBean(file.getId(), title));
     }
 
