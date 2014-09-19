@@ -61,6 +61,24 @@ public class CoOpsSessionDAO extends GenericDAO<CoOpsSession> {
     
     return entityManager.createQuery(criteria).getResultList();
   }
+  
+  public List<CoOpsSession> listByAccessedBeforeAndTypeAndClosed(Date accessed, CoOpsSessionType type, Boolean closed) {
+    EntityManager entityManager = getEntityManager();
+
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<CoOpsSession> criteria = criteriaBuilder.createQuery(CoOpsSession.class);
+    Root<CoOpsSession> root = criteria.from(CoOpsSession.class);
+    criteria.select(root);
+    criteria.where(
+      criteriaBuilder.and(
+        criteriaBuilder.equal(root.get(CoOpsSession_.closed), closed),
+        criteriaBuilder.equal(root.get(CoOpsSession_.type), type),
+        criteriaBuilder.lessThan(root.get(CoOpsSession_.accessed), accessed)
+      )
+    );
+    
+    return entityManager.createQuery(criteria).getResultList();
+  }
 
   public CoOpsSession updateType(CoOpsSession coOpsSession, CoOpsSessionType type) {
     coOpsSession.setType(type);
