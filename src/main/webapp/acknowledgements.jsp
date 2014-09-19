@@ -12,21 +12,20 @@
     <jsp:include page="/includes/navbar.jsp"></jsp:include>
   
     <div class="container">
-      <p>Thanks to</p>
-      <ul>
-        <li>oo + gh / www</li>
-        <li>foyt + gh / www</li>
-      </ul>
+      <h3>Thanks</h3>
       
-      <p>Tech</p>
+      <p>This project is made in collaboration with <a href="https://github.com/otavanopisto/">Otavan Opisto</a> and <a href="https://github.com/foyt/">Foyt</a></p>
+      
+      <h3>Used components and libraries</h3>
+      
       <ul>
-        <li>coops-demo</li>
-        <li>ckplugins</li>
-        <li>diffxmljs</li>
-        <li>jquery</li>
-        <li>bootstrap</li>
-        <li>wildfly</li>
-        <li>h2</li>
+        <li>Parts of this application are taken from CoOps NodeJs demo (<a href="https://github.com/foyt/coops-demo/">https://github.com/foyt/coops-demo/</a>)</li>
+        <li>CoOps plugins for CKEditor (<a href="http://ckeditor.com/addon/coops">http://ckeditor.com/addon/coops</a>)</li>
+        <li>DiffXmlJs is used in CKEditor dmp plugin(<a href="https://github.com/foyt/diffxml-js">https://github.com/foyt/diffxml-js</a>)</li>
+        <li>JQuery is used for client side scripting(<a href="http://jquery.com/">http://jquery.com/</a>)</li>
+        <li>Bootstrap is used as UI library (<a href="http://getbootstrap.com/">http://getbootstrap.com/</a>)</li>
+        <li>Wildfly is used as application container (<a href="http://www.wildfly.org/">http://www.wildfly.org/</a>)</li>
+        <li>H2 is used as database server (<a href="http://www.h2database.com/">http://www.h2database.com/</a>)</li>
       </ul>
 
       <footer>
